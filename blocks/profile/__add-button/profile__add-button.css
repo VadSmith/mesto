@@ -1,0 +1,17 @@
+.profile__add-button {
+  position: absolute;
+  align-self: center;
+  right: 0;
+  width: 150px;
+  height: 50px;
+  border: 2px;
+  border-radius: 2px;
+  border-style: solid;
+  border-color: #fff;
+  background-color: black;
+}
+
+.profile__add-button:hover {
+  opacity: 60%;
+  cursor: url(../../../images/pointer.png) 10 0, pointer;
+}

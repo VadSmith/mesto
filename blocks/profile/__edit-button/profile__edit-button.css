@@ -1,0 +1,15 @@
+.profile__edit-button {
+  width: 24px;
+  height: 24px;
+  margin-bottom: 8px;
+  /* padding: 7px; */
+  border: 1px;
+  border-style: solid;
+  border-color: #fff;
+  background-color: black;
+}
+
+.profile__edit-button:hover {
+  opacity: 60%;
+  cursor: url(../../../images/pointer.png) 10 0, pointer;
+}
