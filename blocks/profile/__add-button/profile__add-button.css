@@ -15,3 +15,19 @@
   opacity: 60%;
   cursor: url(../../../images/pointer.png) 10 0, pointer;
 }
+
+@media screen and (max-width: 1024px) {
+  .profile__add-button {
+    margin-right: 27px;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .profile__add-button {
+    margin: 0 auto;
+    position: relative;
+    display: block;
+    width: 282px;
+    /* margin-right: 19px; */
+  }
+}

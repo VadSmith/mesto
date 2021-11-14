@@ -1,0 +1,6 @@
+.element__photo {
+  margin-bottom: 20px;
+  width: 100%;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}

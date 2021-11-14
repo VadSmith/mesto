@@ -1,0 +1,10 @@
+.element__heart {
+  height: 19px;
+  width: 22px;
+  margin-left: 35px;
+}
+
+.element__heart:hover {
+  opacity: 50%;
+  cursor: url(../../../images/pointer.png) 10 0, pointer;
+}
