@@ -8,3 +8,12 @@
   opacity: 50%;
   cursor: url(../../../images/pointer.png) 10 0, pointer;
 }
+
+@media screen and (max-width: 319px) {
+  .element__heart {
+    margin-left: 5px;
+    width: 8vw;
+    height: auto;
+    margin-bottom: 10vw;
+  }
+}

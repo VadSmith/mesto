@@ -1,4 +1,13 @@
-.popup__form {
+.popup_form {
   display: flex;
   flex-direction: column;
+  border: 1px solid #000000;
+  border-radius: 2px;
+  box-sizing: border-box;
+  max-width: 358px;
+  height: 14px;
+  font-family: Inter, Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  opacity: 0.2;
 }

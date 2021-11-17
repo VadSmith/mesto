@@ -9,6 +9,9 @@
   border-style: solid;
   border-color: #fff;
   background-color: black;
+  background-image: url(../../../images/plus.svg);
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .profile__add-button:hover {
@@ -28,6 +31,14 @@
     position: relative;
     display: block;
     width: 282px;
-    /* margin-right: 19px; */
+  }
+}
+
+@media screen and (max-width: 319px) {
+  .profile__add-button {
+    margin: 0 5px;
+    position: relative;
+    display: block;
+    max-width: 95%;
   }
 }

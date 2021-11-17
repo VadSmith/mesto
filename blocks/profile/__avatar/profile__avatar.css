@@ -11,3 +11,10 @@
     margin-bottom: 22px;
   }
 }
+
+@media screen and (max-width: 319px) {
+  .profile__avatar {
+    max-width: 98%;
+    max-height: auto;
+  }
+}

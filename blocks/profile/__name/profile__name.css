@@ -14,3 +14,10 @@
     text-align: center;
   }
 }
+
+@media screen and (max-width: 319px) {
+  .profile__name {
+    font-size: 7vw;
+    line-height: 7vw;
+  }
+}

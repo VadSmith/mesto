@@ -10,3 +10,10 @@
     padding-left: 27px;
   }
 }
+
+@media screen and (max-width: 319px) {
+  .header__logo {
+    padding-left: 3vw;
+    max-width: 95%;
+  }
+}
