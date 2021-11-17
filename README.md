@@ -1,5 +1,7 @@
 # Проект: Место
 
+* [Ссылка на Github Pages](https://vadsmith.github.io/mesto/)
+
 ### Обзор
 
 * Figma
