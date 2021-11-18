@@ -4,6 +4,10 @@
   grid-template-rows: auto;
   gap: 16px 18px;
   align-items: end;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
 }
 
 @media screen and (max-width: 720px) {
