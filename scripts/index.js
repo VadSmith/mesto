@@ -1,4 +1,3 @@
-console.log('script loaded');
 const popup = document.querySelector(".popup");
 const popupCloseButton = popup.querySelector(".popup__close-button");
 const editButton = document.querySelector(".profile__edit-button");
@@ -23,7 +22,7 @@ function closePopup() {
 
 editButton.addEventListener('click', openPopup);
 popupCloseButton.addEventListener('click', closePopup);
-popupOverlay.addEventListener('click', close);
+popupOverlay.addEventListener('click', closePopup);
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
