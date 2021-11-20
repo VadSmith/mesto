@@ -1,7 +1,7 @@
 .element {
   margin: 0 auto;
   max-width: 282px;
-  height: 362px;
+  min-height: 362px;
   border-radius: 10px;
   background-color: #fff;
   overflow: hidden;
@@ -10,6 +10,6 @@
 @media screen and (max-width: 319px) {
   .element {
     max-width: 95%;
-    height: auto;
+    min-height: 1.5vw;
   }
 }

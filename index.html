@@ -14,7 +14,6 @@
   <div class="page">
     <header class="header">
       <img src="./images/logo.svg" alt="Логотип сайта Место" class="header__logo">
-      <div class="header__line"></div>
     </header>
     <main class="content">
       <section class="profile">
@@ -25,7 +24,7 @@
           </button>
           <p class="profile__occupation">Исследователь океана</p>
         </div>
-        <button class="profile__add-button">
+        <button type="button" class="profile__add-button">
         </button>
       </section>
       <section class="elements">
@@ -33,14 +32,14 @@
           <img src="./images/karachaevsk.jpg" alt="Старинное здание на фоне гор" class="element__photo">
           <div class="element__description">
             <h2 class="element__title">Карачаевск</h2>
-            <img src="./images/heart.svg" alt="сердечко символ лайка" class="element__heart">
+            <button class="element__heart" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/elbrus.jpg" alt="Эльбрус виднеется за холмами" class="element__photo">
           <div class="element__description">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <img src="./images/heart.svg" alt="сердечко символ лайка" class="element__heart">
+            <button class="element__heart" type="button"></button>
           </div>
         </div>
         <div class="element">
@@ -48,14 +47,14 @@
             class="element__photo">
           <div class="element__description">
             <h2 class="element__title">Домбай</h2>
-            <img src="./images/heart.svg" alt="сердечко символ лайка" class="element__heart">
+            <button class="element__heart" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/elbrus.jpg" alt="Эльбрус виднеется за холмами" class="element__photo">
           <div class="element__description">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <img src="./images/heart.svg" alt="сердечко символ лайка" class="element__heart">
+            <button class="element__heart" type="button"></button>
           </div>
         </div>
         <div class="element">
@@ -63,14 +62,14 @@
             class="element__photo">
           <div class="element__description">
             <h2 class="element__title">Домбай</h2>
-            <img src="./images/heart.svg" alt="сердечко символ лайка" class="element__heart">
+            <button class="element__heart" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img src="./images/karachaevsk.jpg" alt="Старинное здание на фоне гор" class="element__photo">
           <div class="element__description">
             <h2 class="element__title">Карачаево-Черкессия</h2>
-            <img src="./images/heart.svg" alt="сердечко символ лайка" class="element__heart">
+            <button class="element__heart" type="button"></button>
           </div>
         </div>
       </section>
@@ -79,14 +78,14 @@
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
     <div class="popup">
-      <div class="popup__overlay"></div>
       <div class="popup__content">
         <button type="button" class="popup__close-button">
         </button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form action="index.html" class="popup__form" name="form">
-          <input type="text" name="name" id="name" class="popup__name" placeholder="Имя">
-          <input type="text" name="occupation" id="occupation" class="popup__occupation" placeholder="Работа">
+          <input type="text" name="name" id="name" class="popup__input popup__input_type_name" placeholder="Имя">
+          <input type="text" name="occupation" id="occupation" class="popup__input popup__input_type_job"
+            placeholder="Работа">
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
       </div>

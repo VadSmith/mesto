@@ -1,6 +1,5 @@
 .popup__occupation {
   margin: 0;
-  margin-top: 30px;
   padding: 0;
   padding-bottom: 9px;
   box-sizing: border-box;
@@ -8,12 +7,12 @@
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   max-width: 358px;
   width: 100%;
-  font-family: Inter;
-  font-style: normal;
+  font-family: Inter, Arial, sans-serif;
   font-weight: normal;
   font-size: 14px;
   line-height: 17px;
   outline: none;
+  margin-top: 30px;
 }
 
 @media screen and (max-width: 319px) {

@@ -6,7 +6,11 @@
   padding: 34px 36px 36px;
   box-sizing: border-box;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-  /* z-index: 20; */
+  z-index: 100;
+}
+
+.popup__content:hover {
+  cursor: auto;
 }
 
 @media screen and (max-width: 520px) {

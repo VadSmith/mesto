@@ -10,7 +10,8 @@
 
 @media screen and (max-width: 1024px) {
   .profile {
-    padding-left: 27px;
+    /* padding-left: 27px; */
+    /* padding-right: 27px; */
   }
 }
 
@@ -18,6 +19,15 @@
   .profile {
     flex-direction: column;
     align-items: center;
-    padding-left: 0;
+    /* padding-left: 0; */
   }
+}
+
+@media screen and (max-width: 319px) {
+  .profile {
+    max-width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
 }
