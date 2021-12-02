@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
   <link rel="stylesheet" href="./pages/index.css">
+  <script src="./scripts/index.js" defer></script>
   <title>Mesto</title>
 </head>
 
@@ -28,50 +29,6 @@
         </button>
       </section>
       <section class="elements">
-        <div class="element">
-          <img src="./images/karachaevsk.jpg" alt="Старинное здание на фоне гор" class="element__photo">
-          <div class="element__description">
-            <h2 class="element__title">Карачаевск</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="./images/elbrus.jpg" alt="Эльбрус виднеется за холмами" class="element__photo">
-          <div class="element__description">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="./images/dombai.jpg" alt="Заснеженные вершины Домбая устремляются в хмурое небо"
-            class="element__photo">
-          <div class="element__description">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="./images/elbrus.jpg" alt="Эльбрус виднеется за холмами" class="element__photo">
-          <div class="element__description">
-            <h2 class="element__title">Гора Эльбрус</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="./images/dombai.jpg" alt="Заснеженные вершины Домбая устремляются в хмурое небо"
-            class="element__photo">
-          <div class="element__description">
-            <h2 class="element__title">Домбай</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img src="./images/karachaevsk.jpg" alt="Старинное здание на фоне гор" class="element__photo">
-          <div class="element__description">
-            <h2 class="element__title">Карачаево-Черкессия</h2>
-            <button class="element__heart" type="button"></button>
-          </div>
-        </div>
       </section>
     </main>
     <footer class="footer">
@@ -91,7 +48,15 @@
       </div>
     </div>
   </div>
-  <script src="./scripts/index.js"></script>
+  <template class="template-element">
+    <div class="element">
+      <img src="" alt="" class="element__photo">
+      <div class="element__description">
+        <h2 class="element__title"></h2>
+        <button class="element__heart" type="button"></button>
+      </div>
+    </div>
+  </template>
 </body>
 
 </html>

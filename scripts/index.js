@@ -36,6 +36,8 @@ const popupCloseButton = popup.querySelector(".popup__close-button");
 const editButton = document.querySelector(".profile__edit-button");
 const profileName = document.querySelector('.profile__name')
 const profileJob = document.querySelector('.profile__occupation');
+const templateEl = document.querySelector('.template-element');
+const elementsContainer = document.querySelector('.elements');
 // const popupOverlay = popup.querySelector('.popup__overlay');
 
 // Находим форму в DOM
@@ -77,3 +79,27 @@ function formSubmitHandler(evt) {
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
 formElement.addEventListener('submit', formSubmitHandler);
+
+
+
+function render() {
+  const elementsHTML = initialCards.map((card) => {
+    // console.log(card);
+    return getElement(card);
+  });
+  elementsContainer.append(...elementsHTML);
+}
+
+function getElement(card) {
+  const newCard = templateEl.content.cloneNode(true);
+  const photo = newCard.querySelector('.element__photo');
+  const title = newCard.querySelector('.element__title');
+
+  photo.setAttribute('src', card.link);
+  photo.setAttribute('alt', card.alt);
+  title.textContent = card.name;
+
+  return newCard;
+}
+
+render();
