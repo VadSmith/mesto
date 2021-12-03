@@ -34,6 +34,7 @@ const initialCards = [
 const popup = document.querySelector(".popup");
 const popupCloseButton = popup.querySelector(".popup__close-button");
 const editButton = document.querySelector(".profile__edit-button");
+const addButton = document.querySelector('.profile__add-button');
 const profileName = document.querySelector('.profile__name')
 const profileJob = document.querySelector('.profile__occupation');
 const templateEl = document.querySelector('.template-element');
@@ -56,6 +57,7 @@ function closePopup() {
 }
 
 editButton.addEventListener('click', openPopup);
+addButton.addEventListener('click', openPopup);
 popupCloseButton.addEventListener('click', closePopup);
 // popupOverlay.addEventListener('click', closePopup);
 // popup.addEventListener('click', closePopup);
@@ -84,7 +86,8 @@ formElement.addEventListener('submit', formSubmitHandler);
 
 function render() {
   const elementsHTML = initialCards.map((card) => {
-    // console.log(card);
+    console.log(card);
+
     return getElement(card);
   });
   elementsContainer.append(...elementsHTML);
