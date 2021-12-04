@@ -35,8 +35,8 @@ const popupAdd = document.querySelector(".popup_type_add");
 const popupAddCloseButton = popupAdd.querySelector('.popup__close-button');
 const addButton = document.querySelector('.profile__add-button');
 const formAddElement = document.querySelector('.popup__form_type_add');
-const formAddPlace = formAddElement.querySelector('.popup__input_type_name');
-const formAddLink = formAddElement.querySelector('.popup__input_type_link');
+const inputAddPlace = formAddElement.querySelector('.popup__input_type_place');
+const inputAddLink = formAddElement.querySelector('.popup__input_type_link');
 
 const templateEl = document.querySelector('.template-element');
 let elementsContainer = document.querySelector('.elements');
@@ -79,8 +79,8 @@ function formAddSubmitHandler(evt) {
     alt: place.value
   }
   elementsContainer.prepend(getElement(card));
-  formAddPlace = '';
-  formAddLink = '';
+  inputAddPlace.value = '';
+  inputAddLink.value = '';
   closePopup(popupAdd);
 }
 
