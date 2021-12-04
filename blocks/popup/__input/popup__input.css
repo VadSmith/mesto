@@ -12,6 +12,11 @@
     font-size: 14px;
     line-height: 17px;
     outline: none;
+    margin-top: 30px;
+  }
+
+  .popup__input:first-child {
+    margin-top: 0;
   }
 
   @media screen and (max-width: 319px) {
