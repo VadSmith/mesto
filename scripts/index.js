@@ -50,13 +50,16 @@ let formEditElement = popupEdit.querySelector('.popup__form');
 let nameInput = formEditElement.querySelector('.popup__input_type_name');
 let jobInput = formEditElement.querySelector('.popup__input_type_job');
 
-
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   if (popup.className.includes('popup_type_edit')) {
     nameInput.value = profileName.textContent;
     jobInput.value = profileJob.textContent;
   }
+}
+
+function doLike(evt) {
+  evt.target.classList.toggle('element__heart_active');
 }
 
 function closePopup(popup) {
@@ -97,6 +100,8 @@ function getElement(card) {
   const photo = newCard.querySelector('.element__photo');
   const title = newCard.querySelector('.element__title');
   const removeButton = newCard.querySelector('.element__remove-button');
+  const heart = newCard.querySelector('.element__heart');
+  heart.addEventListener('click', doLike);
   removeButton.addEventListener('click', removeCard);
   photo.setAttribute('src', card.link);
   photo.setAttribute('alt', card.alt);
