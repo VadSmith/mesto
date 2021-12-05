@@ -50,6 +50,7 @@ let formEditElement = popupEdit.querySelector('.popup__form');
 let nameInput = formEditElement.querySelector('.popup__input_type_name');
 let jobInput = formEditElement.querySelector('.popup__input_type_job');
 
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   if (popup.className.includes('popup_type_edit')) {
@@ -95,10 +96,16 @@ function getElement(card) {
   const newCard = templateEl.content.cloneNode(true);
   const photo = newCard.querySelector('.element__photo');
   const title = newCard.querySelector('.element__title');
+  const removeButton = newCard.querySelector('.element__remove-button');
+  removeButton.addEventListener('click', removeCard);
   photo.setAttribute('src', card.link);
   photo.setAttribute('alt', card.alt);
   title.textContent = card.name;
   return newCard;
+}
+
+function removeCard(evt) {
+  evt.target.closest('.element').remove();
 }
 
 editButton.addEventListener('click', () => { openPopup(popupEdit); });
