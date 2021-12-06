@@ -50,6 +50,9 @@ let formEditElement = popupEdit.querySelector('.popup__form');
 let nameInput = formEditElement.querySelector('.popup__input_type_name');
 let jobInput = formEditElement.querySelector('.popup__input_type_job');
 
+const popupPhoto = document.querySelector('.popup_type_photo');
+const popupPhotoCloseButton = popupPhoto.querySelector('.popup__close-button');
+
 function openPopup(popup) {
   popup.classList.add("popup_opened");
   if (popup.className.includes('popup_type_edit')) {
@@ -87,7 +90,17 @@ function formAddSubmitHandler(evt) {
   inputAddLink.value = '';
   closePopup(popupAdd);
 }
-
+function photoPopupHandler(evt) {
+  openPopup(popupPhoto);
+  const popupFullPhoto = popupPhoto.querySelector('.popup__full-photo');
+  const popupCaption = popupPhoto.querySelector('.popup__caption');
+  const currentElement = evt.currentTarget.closest('.element');
+  const elementTitle = currentElement.querySelector('.element__title').textContent;
+  popupFullPhoto.setAttribute('src', evt.target.src);
+  popupFullPhoto.setAttribute('alt', evt.target.alt);
+  popupCaption.textContent = elementTitle;
+  console.log(popupCaption);
+}
 function render() {
   const elementsHTML = initialCards.map((card) => {
     return getElement(card);
@@ -105,6 +118,7 @@ function getElement(card) {
   removeButton.addEventListener('click', removeCard);
   photo.setAttribute('src', card.link);
   photo.setAttribute('alt', card.alt);
+  photo.addEventListener('click', photoPopupHandler);
   title.textContent = card.name;
   return newCard;
 }
@@ -120,5 +134,8 @@ popupEditCloseButton.addEventListener('click', () => { closePopup(popupEdit); })
 addButton.addEventListener('click', () => { openPopup(popupAdd); })
 formAddElement.addEventListener('submit', formAddSubmitHandler);
 popupAddCloseButton.addEventListener('click', () => { closePopup(popupAdd); });
+
+popupPhotoCloseButton.addEventListener('click', () => { closePopup(popupPhoto) });
+
 
 render();

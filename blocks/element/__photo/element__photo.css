@@ -1,9 +1,11 @@
 .element__photo {
   margin-bottom: 20px;
-  /* width: 100%; */
   grid-column-start: 1;
   grid-column-end: 3;
   width: 282px;
   height: 282px;
-  /* object-fit: cover; */
+}
+
+.element__photo:hover {
+  cursor: url(../../../images/pointer.png) 10 0, pointer;
 }
