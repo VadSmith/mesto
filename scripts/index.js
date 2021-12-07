@@ -39,42 +39,40 @@ const inputAddPlace = formAddElement.querySelector('.popup__input_type_place');
 const inputAddLink = formAddElement.querySelector('.popup__input_type_link');
 
 const templateEl = document.querySelector('.template-element');
-let elementsContainer = document.querySelector('.elements');
+const elementsContainer = document.querySelector('.elements');
 
 const profileName = document.querySelector('.profile__name')
 const profileJob = document.querySelector('.profile__occupation');
 const popupEdit = document.querySelector(".popup_type_edit");
 const popupEditCloseButton = popupEdit.querySelector(".popup__close-button");
 const editButton = document.querySelector(".profile__edit-button");
-let formEditElement = popupEdit.querySelector('.popup__form');
-let nameInput = formEditElement.querySelector('.popup__input_type_name');
-let jobInput = formEditElement.querySelector('.popup__input_type_job');
+const formEditElement = popupEdit.querySelector('.popup__form');
+const nameInput = formEditElement.querySelector('.popup__input_type_name');
+const jobInput = formEditElement.querySelector('.popup__input_type_job');
 
 const popupPhoto = document.querySelector('.popup_type_photo');
 const popupPhotoCloseButton = popupPhoto.querySelector('.popup__close-button');
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
-  if (popup.className.includes('popup_type_edit')) {
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileJob.textContent;
-  }
-}
-
-function doLike(evt) {
-  evt.target.classList.toggle('element__heart_active');
 }
 
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 
+function toggleLike(evt) {
+  evt.target.classList.toggle('element__heart_active');
+}
+
+
+
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
 function formEditSubmitHandler(evt) {
   evt.preventDefault();
-  profileJob.textContent = jobInput.value;
   profileName.textContent = nameInput.value;
+  profileJob.textContent = jobInput.value;
   closePopup(popupEdit);
 }
 
@@ -86,10 +84,10 @@ function formAddSubmitHandler(evt) {
     alt: place.value
   }
   elementsContainer.prepend(getElement(card));
-  inputAddPlace.value = '';
-  inputAddLink.value = '';
+  formAddElement.reset();
   closePopup(popupAdd);
 }
+
 function photoPopupHandler(evt) {
   openPopup(popupPhoto);
   const popupFullPhoto = popupPhoto.querySelector('.popup__full-photo');
@@ -99,8 +97,8 @@ function photoPopupHandler(evt) {
   popupFullPhoto.setAttribute('src', evt.target.src);
   popupFullPhoto.setAttribute('alt', evt.target.alt);
   popupCaption.textContent = elementTitle;
-  console.log(popupCaption);
 }
+
 function render() {
   const elementsHTML = initialCards.map((card) => {
     return getElement(card);
@@ -114,7 +112,7 @@ function getElement(card) {
   const title = newCard.querySelector('.element__title');
   const removeButton = newCard.querySelector('.element__remove-button');
   const heart = newCard.querySelector('.element__heart');
-  heart.addEventListener('click', doLike);
+  heart.addEventListener('click', toggleLike);
   removeButton.addEventListener('click', removeCard);
   photo.setAttribute('src', card.link);
   photo.setAttribute('alt', card.alt);
@@ -127,15 +125,21 @@ function removeCard(evt) {
   evt.target.closest('.element').remove();
 }
 
-editButton.addEventListener('click', () => { openPopup(popupEdit); });
+function fillEditForm() {
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileJob.textContent;
+}
+
+editButton.addEventListener('click', () => openPopup(popupEdit));
+editButton.addEventListener('click', fillEditForm);
 formEditElement.addEventListener('submit', formEditSubmitHandler);
-popupEditCloseButton.addEventListener('click', () => { closePopup(popupEdit); });
+popupEditCloseButton.addEventListener('click', () => closePopup(popupEdit));
 
-addButton.addEventListener('click', () => { openPopup(popupAdd); })
+addButton.addEventListener('click', () => openPopup(popupAdd))
 formAddElement.addEventListener('submit', formAddSubmitHandler);
-popupAddCloseButton.addEventListener('click', () => { closePopup(popupAdd); });
+popupAddCloseButton.addEventListener('click', () => closePopup(popupAdd));
 
-popupPhotoCloseButton.addEventListener('click', () => { closePopup(popupPhoto) });
+popupPhotoCloseButton.addEventListener('click', () => closePopup(popupPhoto));
 
 
 render();
