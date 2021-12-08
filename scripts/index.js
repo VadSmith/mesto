@@ -130,8 +130,10 @@ function fillEditForm() {
   jobInput.value = profileJob.textContent;
 }
 
-editButton.addEventListener('click', () => openPopup(popupEdit));
-editButton.addEventListener('click', fillEditForm);
+editButton.addEventListener('click', () => {
+  fillEditForm();
+  openPopup(popupEdit);
+})
 formEditElement.addEventListener('submit', formEditSubmitHandler);
 popupEditCloseButton.addEventListener('click', () => closePopup(popupEdit));
 
