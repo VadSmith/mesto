@@ -35,28 +35,30 @@
       <p class="footer__copyright">&copy; 2021 Mesto Russia</p>
     </footer>
     <div class="popup popup_type_edit">
+      <div class="popup__overlay"></div>
       <div class="popup__content">
         <button type="button" class="popup__close-button">
         </button>
         <h2 class="popup__title">Редактировать профиль</h2>
         <form action="index.html" class="popup__form popup__form_type_edit" name="formEdit">
-          <input type="text" name="name" id="name" class="popup__input popup__input_type_name" placeholder="Имя"
-            autofocus>
-          <input type="text" name="occupation" id="occupation" class="popup__input popup__input_type_job"
-            placeholder="Работа">
+          <input required minlength="2" maxlength="40" type="text" name="name" id="name"
+            class="popup__input popup__input_type_name" placeholder="Имя" autofocus>
+          <input required minlength="2" maxlength="200" type="text" name="occupation" id="occupation"
+            class="popup__input popup__input_type_job" placeholder="Работа">
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
       </div>
     </div>
     <div class="popup popup_type_add">
+      <div class="popup__overlay"></div>
       <div class="popup__content">
         <button type="button" class="popup__close-button">
         </button>
         <h2 class="popup__title">Новое место</h2>
-        <form action="index.html" class="popup__form popup__form_type_add" name="formAdd">
+        <form novalidate action="index.html" class="popup__form popup__form_type_add" name="formAdd">
           <input type="text" name="place" id="place" class="popup__input popup__input_type_place" placeholder="Название"
             autofocus>
-          <input type="text" name="link" id="link" class="popup__input popup__input_type_link"
+          <input type="url" name="link" id="link" class="popup__input popup__input_type_link"
             placeholder="Ссылка на картинку">
           <button type="submit" class="popup__submit-button">Сохранить</button>
         </form>
@@ -65,6 +67,7 @@
 
 
     <div class="popup popup_type_photo">
+      <div class="popup__overlay"></div>
       <div class="popup__content popup__content_type_photo">
         <button type="button" class="popup__close-button">
         </button>

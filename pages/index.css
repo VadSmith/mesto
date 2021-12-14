@@ -52,3 +52,4 @@
 @import url(../blocks/popup/_type/popup_type_photo.css);
 @import url(../blocks/popup/__content/_type/popup__content_type_photo.css);
 @import url(../blocks/popup/__full-photo/popup__full-photo.css);
+@import url(../blocks/popup/__overlay/popup__overlay.css);

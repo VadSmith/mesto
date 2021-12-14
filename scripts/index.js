@@ -37,6 +37,7 @@ const addButton = document.querySelector('.profile__add-button');
 const formAddElement = document.querySelector('.popup__form_type_add');
 const inputAddPlace = formAddElement.querySelector('.popup__input_type_place');
 const inputAddLink = formAddElement.querySelector('.popup__input_type_link');
+const popupAddOverlay = popupAdd.querySelector('.popup__overlay');
 
 const templateEl = document.querySelector('.template-element');
 const elementsContainer = document.querySelector('.elements');
@@ -46,12 +47,15 @@ const profileJob = document.querySelector('.profile__occupation');
 const popupEdit = document.querySelector(".popup_type_edit");
 const popupEditCloseButton = popupEdit.querySelector(".popup__close-button");
 const editButton = document.querySelector(".profile__edit-button");
+const popupEditOverlay = popupEdit.querySelector('.popup__overlay');
+
 const formEditElement = popupEdit.querySelector('.popup__form');
 const nameInput = formEditElement.querySelector('.popup__input_type_name');
 const jobInput = formEditElement.querySelector('.popup__input_type_job');
 
 const popupPhoto = document.querySelector('.popup_type_photo');
 const popupPhotoCloseButton = popupPhoto.querySelector('.popup__close-button');
+const popupPhotoOverlay = popupPhoto.querySelector('.popup__overlay');
 
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -130,18 +134,38 @@ function fillEditForm() {
   jobInput.value = profileJob.textContent;
 }
 
+function keyHandler(evt) {
+  const currentPopup = document.querySelector('.popup_opened');
+  if (currentPopup && evt.key === 'Escape') {
+    closePopup(currentPopup);
+  }
+
+}
+
 editButton.addEventListener('click', () => {
   fillEditForm();
   openPopup(popupEdit);
 })
+
 formEditElement.addEventListener('submit', formEditSubmitHandler);
 popupEditCloseButton.addEventListener('click', () => closePopup(popupEdit));
 
-addButton.addEventListener('click', () => openPopup(popupAdd))
+popupEditOverlay.addEventListener('click', () => closePopup(popupEdit));
+
+addButton.addEventListener('click', () => openPopup(popupAdd));
 formAddElement.addEventListener('submit', formAddSubmitHandler);
 popupAddCloseButton.addEventListener('click', () => closePopup(popupAdd));
+popupAddOverlay.addEventListener('click', () => closePopup(popupAdd));
+document.addEventListener('keyup', function (evt) {
+  const currentPopup = document.querySelector('.popup_opened');
+  if (currentPopup && evt.key === 'Escape') {
+    closePopup(currentPopup);
+  }
+});
+
 
 popupPhotoCloseButton.addEventListener('click', () => closePopup(popupPhoto));
+popupPhotoOverlay.addEventListener('click', () => closePopup(popupPhoto));
 
 
 render();
