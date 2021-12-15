@@ -69,10 +69,6 @@ function toggleLike(evt) {
   evt.target.classList.toggle('element__heart_active');
 }
 
-
-
-// Обработчик «отправки» формы, хотя пока
-// она никуда отправляться не будет
 function formEditSubmitHandler(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
