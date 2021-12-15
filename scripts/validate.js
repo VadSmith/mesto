@@ -1,4 +1,13 @@
 // включаем визуальные атрибуты невалидного ввода
+const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+}
+
 const showError = (form, input, errorMessageText, errorMessageClass, inputErrorClass) => {
   const errorMessage = form.querySelector(`#${input.id}-error`); // спан ошибки
   errorMessage.textContent = errorMessageText; // вносим текст ошибки от браузера
@@ -62,11 +71,17 @@ const enableValidation = ({ formSelector, ...rest }) => {
   });
 }
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-});
+const resetValidation = () => {
+
+}
+// enableValidation({
+//   formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   submitButtonSelector: '.popup__button',
+//   inactiveButtonClass: 'popup__button_disabled',
+//   inputErrorClass: 'popup__input_type_error',
+//   errorClass: 'popup__error_visible'
+// });
+
+
+enableValidation(validationConfig);
