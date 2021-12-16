@@ -1,4 +1,3 @@
-// включаем визуальные атрибуты невалидного ввода
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -8,6 +7,7 @@ const validationConfig = {
   errorClass: 'popup__error_visible'
 }
 
+// включаем визуальные атрибуты невалидного ввода
 const showError = (form, input, errorMessageText, errorMessageClass, inputErrorClass) => {
   const errorMessage = form.querySelector(`#${input.id}-error`); // спан ошибки
   errorMessage.textContent = errorMessageText; // вносим текст ошибки от браузера
@@ -60,7 +60,6 @@ const setInputListeners = (form, { inputSelector, submitButtonSelector, inactive
   });
 }
 
-// включение валидации на странице
 const enableValidation = ({ formSelector, ...rest }) => {
   const forms = document.querySelectorAll(formSelector); // собираем все формы
   forms.forEach((form) => {
@@ -71,17 +70,16 @@ const enableValidation = ({ formSelector, ...rest }) => {
   });
 }
 
-const resetValidation = () => {
-
+const resetValidation = ({ formSelector, inputSelector, submitButtonSelector, errorMessageClass, inputErrorClass }) => {
+  const currentPopup = document.querySelector('.popup_opened');
+  const form = currentPopup.querySelector(formSelector);
+  const submitButton = currentPopup.querySelector(submitButtonSelector);
+  const inputs = currentPopup.querySelectorAll(inputSelector);
+  form.reset();
+  inputs.forEach((input) => {
+    hideError(form, input, errorMessageClass, inputErrorClass);
+  })
+  console.log(currentPopup, submitButton, inputs);
 }
-// enableValidation({
-//   formSelector: '.popup__form',
-//   inputSelector: '.popup__input',
-//   submitButtonSelector: '.popup__button',
-//   inactiveButtonClass: 'popup__button_disabled',
-//   inputErrorClass: 'popup__input_type_error',
-//   errorClass: 'popup__error_visible'
-// });
-
 
 enableValidation(validationConfig);

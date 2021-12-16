@@ -55,6 +55,7 @@ function handleFormAddSubmit(evt) {
   }
   elementsContainer.prepend(getElement(card));
   formAddElement.reset();
+  // debugger;
   closePopup(popupAdd);
 }
 
@@ -102,7 +103,6 @@ function fillEditForm() {
 
 function handleEscapeKey(evt) {
   const currentPopup = document.querySelector('.popup_opened');
-  // if (currentPopup && evt.key === 'Escape') {
   if (evt.key === 'Escape') {
     closePopup(currentPopup);
   }
@@ -115,15 +115,23 @@ profileEditButton.addEventListener('click', () => {
 })
 
 formEditElement.addEventListener('submit', handleFormEditSubmit);
-popupEditCloseButton.addEventListener('click', () => closePopup(popupEdit));
+popupEditCloseButton.addEventListener('click', () => {
+  resetValidation(validationConfig);
+  closePopup(popupEdit)
+});
 
 popupEditOverlay.addEventListener('click', () => closePopup(popupEdit));
 
-profileAddButton.addEventListener('click', () => openPopup(popupAdd));
+profileAddButton.addEventListener('click', () => {
+  openPopup(popupAdd);
+});
 formAddElement.addEventListener('submit', handleFormAddSubmit);
-popupAddCloseButton.addEventListener('click', () => closePopup(popupAdd));
+popupAddCloseButton.addEventListener('click', () => {
+  formAddElement.reset();
+  resetValidation(validationConfig);
+  closePopup(popupAdd);
+});
 popupAddOverlay.addEventListener('click', () => closePopup(popupAdd));
-// document.addEventListener('keyup', handleEscapeKey);
 
 popupPhotoCloseButton.addEventListener('click', () => closePopup(popupPhoto));
 popupPhotoOverlay.addEventListener('click', () => closePopup(popupPhoto));
