@@ -17,9 +17,9 @@ const profileEditButton = document.querySelector(".profile__edit-button");
 const popupEditOverlay = popupEdit.querySelector('.popup__overlay');
 
 // const formEditElement = popupEdit.querySelector('.popup__form');
-const popupForm = popupEdit.querySelector('.popup__form');
-const nameInput = popupForm.querySelector('.popup__input_type_name');
-const jobInput = popupForm.querySelector('.popup__input_type_job');
+const formEditProfile = popupEdit.querySelector('.popup__form');
+const nameInput = formEditProfile.querySelector('.popup__input_type_name');
+const jobInput = formEditProfile.querySelector('.popup__input_type_job');
 
 const popupPhoto = document.querySelector('.popup_type_photo');
 const popupPhotoCloseButton = popupPhoto.querySelector('.popup__close-button');
@@ -116,7 +116,7 @@ profileEditButton.addEventListener('click', () => {
 
 })
 
-popupForm.addEventListener('submit', handleFormEditSubmit);
+formEditProfile.addEventListener('submit', handleFormEditSubmit);
 
 popupEditCloseButton.addEventListener('click', () => {
   closePopup(popupEdit)
