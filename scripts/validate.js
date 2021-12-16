@@ -70,16 +70,14 @@ const enableValidation = ({ formSelector, ...rest }) => {
   });
 }
 
-const resetValidation = ({ formSelector, inputSelector, submitButtonSelector, errorMessageClass, inputErrorClass }) => {
-  const currentPopup = document.querySelector('.popup_opened');
-  const form = currentPopup.querySelector(formSelector);
-  const submitButton = currentPopup.querySelector(submitButtonSelector);
-  const inputs = currentPopup.querySelectorAll(inputSelector);
-  form.reset();
+const resetValidation = (form, { inputSelector, submitButtonSelector, errorMessageClass, inputErrorClass, inactiveButtonClass }) => {
+  const submitButton = form.querySelector(submitButtonSelector);
+  const inputs = form.querySelectorAll(inputSelector);
   inputs.forEach((input) => {
     hideError(form, input, errorMessageClass, inputErrorClass);
   })
-  console.log(currentPopup, submitButton, inputs);
+  toggleButtonError(inputs, submitButton, inactiveButtonClass);
+
 }
 
 enableValidation(validationConfig);

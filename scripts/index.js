@@ -16,9 +16,10 @@ const popupEditCloseButton = popupEdit.querySelector(".popup__close-button");
 const profileEditButton = document.querySelector(".profile__edit-button");
 const popupEditOverlay = popupEdit.querySelector('.popup__overlay');
 
-const formEditElement = popupEdit.querySelector('.popup__form');
-const nameInput = formEditElement.querySelector('.popup__input_type_name');
-const jobInput = formEditElement.querySelector('.popup__input_type_job');
+// const formEditElement = popupEdit.querySelector('.popup__form');
+const popupForm = popupEdit.querySelector('.popup__form');
+const nameInput = popupForm.querySelector('.popup__input_type_name');
+const jobInput = popupForm.querySelector('.popup__input_type_job');
 
 const popupPhoto = document.querySelector('.popup_type_photo');
 const popupPhotoCloseButton = popupPhoto.querySelector('.popup__close-button');
@@ -55,7 +56,6 @@ function handleFormAddSubmit(evt) {
   }
   elementsContainer.prepend(getElement(card));
   formAddElement.reset();
-  // debugger;
   closePopup(popupAdd);
 }
 
@@ -112,11 +112,13 @@ function handleEscapeKey(evt) {
 profileEditButton.addEventListener('click', () => {
   fillEditForm();
   openPopup(popupEdit);
+  resetValidation(popupEdit, validationConfig);
+
 })
 
-formEditElement.addEventListener('submit', handleFormEditSubmit);
+popupForm.addEventListener('submit', handleFormEditSubmit);
+
 popupEditCloseButton.addEventListener('click', () => {
-  resetValidation(validationConfig);
   closePopup(popupEdit)
 });
 
@@ -124,13 +126,14 @@ popupEditOverlay.addEventListener('click', () => closePopup(popupEdit));
 
 profileAddButton.addEventListener('click', () => {
   openPopup(popupAdd);
+  resetValidation(popupAdd, validationConfig);
 });
+
 formAddElement.addEventListener('submit', handleFormAddSubmit);
 popupAddCloseButton.addEventListener('click', () => {
-  formAddElement.reset();
-  resetValidation(validationConfig);
   closePopup(popupAdd);
 });
+
 popupAddOverlay.addEventListener('click', () => closePopup(popupAdd));
 
 popupPhotoCloseButton.addEventListener('click', () => closePopup(popupPhoto));
