@@ -1,13 +1,17 @@
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
+const formValidator = new FormValidator();
 const popupAdd = document.querySelector(".popup_type_add");
 const popupAddCloseButton = popupAdd.querySelector('.popup__close-button');
 const profileAddButton = document.querySelector('.profile__add-button');
 const formAddElement = document.querySelector('.popup__form_type_add');
-const inputAddPlace = formAddElement.querySelector('.popup__input_type_place');
-const inputAddLink = formAddElement.querySelector('.popup__input_type_link');
+// const inputAddPlace = formAddElement.querySelector('.popup__input_type_place');
+// const inputAddLink = formAddElement.querySelector('.popup__input_type_link');
 const popupAddOverlay = popupAdd.querySelector('.popup__overlay');
 
-const templateEl = document.querySelector('.template-element');
-const elementsContainer = document.querySelector('.elements');
+// const templateEl = document.querySelector('.template-element'); // шаблон карточки
+const elementsContainer = document.querySelector('.elements'); // контейнер карточек
 
 const profileName = document.querySelector('.profile__name')
 const profileJob = document.querySelector('.profile__occupation');
@@ -33,11 +37,6 @@ function openPopup(popup) {
 function closePopup(popup) {
   popup.classList.remove("popup_opened");
   document.removeEventListener('keyup', handleEscapeKey);
-
-}
-
-function toggleLike(evt) {
-  evt.target.classList.toggle('element__heart_active');
 }
 
 function handleFormEditSubmit(evt) {
@@ -54,7 +53,8 @@ function handleFormAddSubmit(evt) {
     link: link.value,
     alt: place.value
   }
-  elementsContainer.prepend(getElement(card));
+  const newCard = new Card('.template-element', card, handlePhotoPopup);
+  elementsContainer.prepend(newCard.getView(card));
   formAddElement.reset();
   closePopup(popupAdd);
 }
@@ -72,28 +72,10 @@ function handlePhotoPopup(evt) {
 
 function render() {
   const elementsHTML = initialCards.map((card) => {
-    return getElement(card);
+    const newCard = new Card('.template-element', card, handlePhotoPopup);
+    return newCard.getView();
   });
   elementsContainer.append(...elementsHTML);
-}
-
-function getElement(card) {
-  const newCard = templateEl.content.cloneNode(true);
-  const photo = newCard.querySelector('.element__photo');
-  const title = newCard.querySelector('.element__title');
-  const removeButton = newCard.querySelector('.element__remove-button');
-  const heart = newCard.querySelector('.element__heart');
-  heart.addEventListener('click', toggleLike);
-  removeButton.addEventListener('click', removeCard);
-  photo.setAttribute('src', card.link);
-  photo.setAttribute('alt', card.alt);
-  photo.addEventListener('click', handlePhotoPopup);
-  title.textContent = card.name;
-  return newCard;
-}
-
-function removeCard(evt) {
-  evt.target.closest('.element').remove();
 }
 
 function fillEditForm() {
@@ -106,38 +88,31 @@ function handleEscapeKey(evt) {
   if (evt.key === 'Escape') {
     closePopup(currentPopup);
   }
-
 }
 
-profileEditButton.addEventListener('click', () => {
-  fillEditForm();
-  openPopup(popupEdit);
-  resetValidation(popupEdit, validationConfig);
-
-})
-
 formEditProfile.addEventListener('submit', handleFormEditSubmit);
-
 popupEditCloseButton.addEventListener('click', () => {
   closePopup(popupEdit)
 });
-
 popupEditOverlay.addEventListener('click', () => closePopup(popupEdit));
-
+profileEditButton.addEventListener('click', () => {
+  fillEditForm();
+  openPopup(popupEdit);
+  formValidator.resetValidation(popupEdit);
+})
 profileAddButton.addEventListener('click', () => {
   openPopup(popupAdd);
-  resetValidation(popupAdd, validationConfig);
+  // дело вкуса, подсвечивать ли ошибки заново
+  // formValidator.resetValidation(popupAdd);
 });
-
 formAddElement.addEventListener('submit', handleFormAddSubmit);
 popupAddCloseButton.addEventListener('click', () => {
   closePopup(popupAdd);
 });
-
 popupAddOverlay.addEventListener('click', () => closePopup(popupAdd));
-
 popupPhotoCloseButton.addEventListener('click', () => closePopup(popupPhoto));
 popupPhotoOverlay.addEventListener('click', () => closePopup(popupPhoto));
 
 
 render();
+formValidator.enableValidation();
