@@ -5,7 +5,7 @@ import initialCards from '../utils/initialCards.js';
 
 const popupAddCard = document.querySelector(".popup_type_add");
 const popupAddCloseButton = popupAddCard.querySelector('.popup__close-button');
-const profileAddButton = document.querySelector('.profile__add-button');
+const addPlaceButton = document.querySelector('.profile__add-button');
 const formAddPlaceElement = document.querySelector('.popup__form_type_add');
 // const inputAddPlace = formAddElement.querySelector('.popup__input_type_place');
 // const inputAddLink = formAddElement.querySelector('.popup__input_type_link');
@@ -64,6 +64,7 @@ function handleFormAddSubmit(evt) {
   elementsContainer.prepend(createCard(card).getView());
   formAddPlaceElement.reset();
   closePopup(popupAddCard);
+
 }
 
 function handlePhotoPopup(evt) {
@@ -105,9 +106,9 @@ profileEditButton.addEventListener('click', () => {
   openPopup(popupEditProfile);
   editProfileFormValidation.resetValidation();
 })
-profileAddButton.addEventListener('click', () => {
+addPlaceButton.addEventListener('click', () => {
   openPopup(popupAddCard);
-  // addPlaceFormValidation.resetValidation();
+  addPlaceFormValidation.resetValidation();
 });
 formAddPlaceElement.addEventListener('submit', handleFormAddSubmit);
 popupAddCloseButton.addEventListener('click', () => {
