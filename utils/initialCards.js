@@ -30,3 +30,5 @@ const initialCards = [
     alt: 'Скалистый утес на берегу Байкала'
   }
 ];
+
+export default initialCards;

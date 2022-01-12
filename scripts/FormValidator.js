@@ -1,31 +1,13 @@
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
-}
 class FormValidator {
-  // constructor(form, validationConfig) {
-  constructor() {
-    // this._form = form;
-    this._formSelector = validationConfig.formSelector;
-    this._inputSelector = validationConfig.inputSelector;
-    this._submitButtonSelector = validationConfig.submitButtonSelector;
-    this._inactiveButtonClass = validationConfig.inactiveButtonClass;
-    this._inputErrorClass = validationConfig.inputErrorClass;
-    this._errorClass = validationConfig.errorClass;
+  constructor(form, formClasses) {
+    this._form = form;
+    this._formSelector = formClasses.formSelector;
+    this._inputSelector = formClasses.inputSelector;
+    this._submitButtonSelector = formClasses.submitButtonSelector;
+    this._inactiveButtonClass = formClasses.inactiveButtonClass;
+    this._inputErrorClass = formClasses.inputErrorClass;
+    this._errorClass = formClasses.errorClass;
   }
-
-  // const validationConfig = {
-  //   formSelector: '.popup__form',
-  //   inputSelector: '.popup__input',
-  //   submitButtonSelector: '.popup__button',
-  //   inactiveButtonClass: 'popup__button_disabled',
-  //   inputErrorClass: 'popup__input_type_error',
-  //   errorClass: 'popup__error_visible'
-  // }
 
   // включаем визуальные атрибуты невалидного ввода
   _showError(form, input, errorMessageText) {
@@ -60,7 +42,6 @@ class FormValidator {
   }
 
   // Читаем свойство valid инпута
-  // _checkInputValidity(form, input, { inputErrorClass, errorClass }) {
   _checkInputValidity(form, input) {
     if (!input.validity.valid) { // читаем свойство valid
       this._showError(form, input, input.validationMessage, this._errorClass, this._inputErrorClass); // показываем спан с ошибкой
@@ -70,7 +51,6 @@ class FormValidator {
   }
 
   // установка слушателей на все инпуты
-  // _setInputListeners(form, { inputSelector, submitButtonSelector, inactiveButtonClass, ...rest }) {
   _setInputListeners(form) {
     const inputs = form.querySelectorAll(this._inputSelector); // собираем все инпуты
     const submitButton = form.querySelector(this._submitButtonSelector); // берем кнопку сабмит
@@ -82,29 +62,23 @@ class FormValidator {
     });
   }
 
-  // enableValidation({ formSelector, ...rest }) {
-  enableValidation() {
-    const forms = document.querySelectorAll(this._formSelector); // собираем все формы
-    forms.forEach((form) => {
-      form.addEventListener('submit', (event) => {
-        event.preventDefault();
-      });
-      this._setInputListeners(form); // вешаем слушателей на конкретную форму из forms
-    });
-  }
-
-  // resetValidation(form, { inputSelector, submitButtonSelector, errorMessageClass, inputErrorClass, inactiveButtonClass }) {
-  resetValidation(form) {
-    const submitButton = form.querySelector(this._submitButtonSelector);
-    const inputs = form.querySelectorAll(this._inputSelector);
+  resetValidation() {
+    const submitButton = this._form.querySelector(this._submitButtonSelector);
+    const inputs = this._form.querySelectorAll(this._inputSelector);
     inputs.forEach((input) => {
-      this._hideError(form, input);
+      this._hideError(this._form, input);
     })
     this._toggleButtonError(inputs, submitButton);
   }
 
+  enableValidation() {
+    this._form.addEventListener('submit', (event) => {
+      event.preventDefault();
+    });
+    this._setInputListeners(this._form);
+    this.resetValidation(this._form);
+  }
+
 }
 
-
-// enableValidation(validationConfig);
 export default FormValidator;

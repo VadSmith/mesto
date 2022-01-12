@@ -1,6 +1,6 @@
 class Card {
-  constructor(selector, cardData, handlePhotoPopup) {
-    this._templateElement = document.querySelector(selector);
+  constructor(templateSelector, cardData, handlePhotoPopup) {
+    this._templateElement = document.querySelector(templateSelector);
     this._cardData = cardData;
     this._handlePhotoPopup = handlePhotoPopup;
     this._newCard = this._getTemplate();
