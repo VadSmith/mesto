@@ -31,7 +31,7 @@ class FormValidator {
   }
 
   // Делаем недоступной кнопку сабмита, если есть невалидный инпут
-  _toggleButtonError(inputs, button) {
+  _toggleSubmitButton(inputs, button) {
     if (this._hasInvalidInput(inputs)) {
       button.classList.add(this._inactiveButtonClass); // выключаем кнопку сабмит
       button.disabled = true;
@@ -57,7 +57,7 @@ class FormValidator {
     inputs.forEach((input) => {
       input.addEventListener('input', () => {  // вешаем слушателей на каждый инпут
         this._checkInputValidity(form, input); // проверка валидности
-        this._toggleButtonError(inputs, submitButton, this._inactiveButtonClass); // включение кнопки сабмита
+        this._toggleSubmitButton(inputs, submitButton, this._inactiveButtonClass); // включение кнопки сабмита
       });
     });
   }
@@ -68,7 +68,7 @@ class FormValidator {
     inputs.forEach((input) => {
       this._hideError(this._form, input);
     })
-    this._toggleButtonError(inputs, submitButton);
+    this._toggleSubmitButton(inputs, submitButton);
   }
 
   enableValidation() {

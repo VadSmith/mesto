@@ -1,8 +1,8 @@
 class Card {
-  constructor(templateSelector, cardData, handlePhotoPopup) {
+  constructor({ cardData, handleCardClick }, templateSelector) {
     this._templateElement = document.querySelector(templateSelector);
     this._cardData = cardData;
-    this._handlePhotoPopup = handlePhotoPopup;
+    this._handleCardClick = handleCardClick;
     this._newCard = this._getTemplate();
     this._removeButton = this._newCard.querySelector('.element__remove-button');
     this._heart = this._newCard.querySelector('.element__heart');
@@ -25,7 +25,7 @@ class Card {
   _setEventListeners() {
     this._removeButton.addEventListener('click', this._removeCard);
     this._heart.addEventListener('click', this._toggleLike);
-    this._photo.addEventListener('click', this._handlePhotoPopup);
+    this._photo.addEventListener('click', this._handleCardClick);
   }
 
   getView() {
