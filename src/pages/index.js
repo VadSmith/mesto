@@ -1,12 +1,12 @@
-import './pages/index.css'
-import Card from './components/Card.js';
-import FormValidator from './components/FormValidator.js';
-import formClasses from './utils/formClasses.js';
-import initialCards from './utils/initialCards.js';
-import Section from './components/Section.js';
-import PopupWithImage from './components/PopupWithImage.js';
-import PopupWithForm from './components/PopupWithForm.js';
-import UserInfo from './components/UserInfo.js';
+import './index.css'
+import Card from '../components/Card.js';
+import FormValidator from '../components/FormValidator.js';
+import formClasses from '../utils/formClasses.js';
+import initialCards from '../utils/initialCards.js';
+import Section from '../components/Section.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import UserInfo from '../components/UserInfo.js';
 
 const addPlaceButton = document.querySelector('.profile__add-button');
 const formAddPlaceElement = document.querySelector('.popup__form_type_add');
