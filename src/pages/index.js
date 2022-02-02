@@ -27,7 +27,7 @@ function createCard(cardObject) {
     handleCardClick: () => {
       popupWithImageInstance.open(cardObject);
     }
-  }, '.template-element');
+  }, '.template-element').getView();
 }
 
 // Валидация добавления места
@@ -40,12 +40,13 @@ editProfileFormValidator.enableValidation();
 
 // Попап Большое фото
 const popupWithImageInstance = new PopupWithImage('.popup_type_photo');
+popupWithImageInstance.setEventListeners();
 
 // Рендер карточек из базы
 const cardsSection = new Section({
   items: initialCards,
   renderer: (cardObject) => {
-    const newCardElement = createCard(cardObject).getView();
+    const newCardElement = createCard(cardObject);
     cardsSection.addItem(newCardElement);
   }
 }, elementsContainer)
@@ -59,8 +60,10 @@ const popupAddCardInstance = new PopupWithForm('.popup_type_add', (cardData) => 
     link: cardData.link,
     alt: cardData.place
   }
-  elementsContainer.prepend(createCard(card).getView());
+  cardsSection.addItem(createCard(card));
 });
+
+popupAddCardInstance.setEventListeners();
 
 // Слушатель на кнопку добавления места
 addPlaceButton.addEventListener('click', () => {
@@ -76,14 +79,19 @@ const popupEditProfileInstance = new PopupWithForm('.popup_type_edit', (userObje
 }
 );
 
+popupEditProfileInstance.setEventListeners();
+
 const userSelector = {
   profileNameSelector: '.profile__name',
   profileJobSelector: '.profile__occupation'
 }
 
 const userInfo = new UserInfo(userSelector);
+// const userName = userInfo.getUserInfo().name;
+// const userOccupation = userInfo.getUserInfo().occupation;
 
 // Слушатель на кнопку профиля
+
 profileEditButton.addEventListener('click', () => {
   popupEditProfileInstance.open();
   nameInput.value = userInfo.getUserInfo().name;

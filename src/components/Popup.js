@@ -9,11 +9,13 @@ export default class Popup {
 
   open() {
     this._popup.classList.add("popup_opened");
-    this.setEventListeners();
+    document.addEventListener('keyup', this._handleEscClose); // Обработка ESC
+    // this.setEventListeners();
   }
 
   close() {
     this._popup.classList.remove("popup_opened");
+    document.removeEventListener('keyup', this._handleEscClose);
     // this._removeEventListeners();
   }
 
@@ -24,15 +26,13 @@ export default class Popup {
   }
 
   _removeEventListeners() {
-    document.removeEventListener('keyup', this._handleEscClose);
     this._popupOverlay.removeEventListener('click', this.close); // закрытие по оверлэй
     this._popupCloseButton.removeEventListener('click', this.close);
   }
 
   setEventListeners() {
-    document.addEventListener('keyup', this._handleEscClose, { once: true }); // Обработка ESC
-    this._popupOverlay.addEventListener('click', this.close, { once: true }); // закрытие по оверлэй
-    this._popupCloseButton.addEventListener('click', this.close, { once: true }); //
+    this._popupOverlay.addEventListener('click', this.close); // закрытие по оверлэй
+    this._popupCloseButton.addEventListener('click', this.close); //
   }
 
 }

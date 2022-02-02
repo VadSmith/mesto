@@ -7,6 +7,9 @@ class FormValidator {
     this._inactiveButtonClass = formClasses.inactiveButtonClass;
     this._inputErrorClass = formClasses.inputErrorClass;
     this._errorClass = formClasses.errorClass;
+
+    this._submitButton = this._form.querySelector(this._submitButtonSelector);
+    this._inputs = this._form.querySelectorAll(this._inputSelector);
   }
 
   // включаем визуальные атрибуты невалидного ввода
@@ -63,12 +66,12 @@ class FormValidator {
   }
 
   resetValidation() {
-    const submitButton = this._form.querySelector(this._submitButtonSelector);
-    const inputs = this._form.querySelectorAll(this._inputSelector);
-    inputs.forEach((input) => {
+    // const submitButton = this._form.querySelector(this._submitButtonSelector);
+    // const inputs = this._form.querySelectorAll(this._inputSelector);
+    this._inputs.forEach((input) => {
       this._hideError(this._form, input);
     })
-    this._toggleSubmitButton(inputs, submitButton);
+    this._toggleSubmitButton(this._inputs, this._submitButton);
   }
 
   enableValidation() {

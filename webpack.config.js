@@ -11,7 +11,7 @@ module.exports = {
   },
   mode: 'development',
   devServer: {
-    contentBase: path.resolve(__dirname, './dist'),
+    static: './dist',
     compress: true,
     port: 8080,
     open: true
@@ -29,7 +29,7 @@ module.exports = {
       },
       {
         // регулярное выражение, которое ищет все файлы с такими расширениями
-        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf)$/,
+        test: /\.(png|svg|jpg|gif|woff(2)?|eot|ttf|otf|ico)$/,
         type: 'asset/resource'
       },
       {
