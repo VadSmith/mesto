@@ -22,12 +22,14 @@
 
       <!-- БЛОК ПРОФИЛЯ -->
       <section class="profile">
-        <img src="<%=require('./images/cousteau.jpg')%>" alt="Фото пользователя" class="profile__avatar">
+        <div class="profile__avatar-overlay">
+          <img src="<%=require('./images/cousteau.jpg')%>" alt="Фото пользователя" class="profile__avatar">
+        </div>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name">Пользователь</h1>
           <button type="button" class="profile__edit-button">
           </button>
-          <p class="profile__occupation">Исследователь океана</p>
+          <p class="profile__occupation">Обо мне</p>
         </div>
         <button type="button" class="profile__add-button">
         </button>
@@ -50,7 +52,7 @@
           <input required minlength="2" maxlength="40" type="text" name="name" id="name-input"
             class="popup__input popup__input_type_name" placeholder="Имя" autofocus>
           <span id="name-input-error" class="popup__error"></span>
-          <input required minlength="2" maxlength="200" type="text" name="occupation" id="occupation-input"
+          <input required minlength="2" maxlength="200" type="text" name="about" id="occupation-input"
             class="popup__input popup__input_type_job" placeholder="Работа">
           <span id="occupation-input-error" class="popup__error"></span>
           <button type="submit" class="popup__button">Сохранить</button>
@@ -77,6 +79,38 @@
       </div>
     </div>
 
+    <!-- POPUP ИЗМЕНИТЬ АВАТАР -->
+    <div class="popup popup_type_avatar">
+      <div class="popup__overlay"></div>
+      <div class="popup__content">
+        <button type="button" class="popup__close-button">
+        </button>
+        <h2 class="popup__title">Обновить аватар</h2>
+        <form novalidate action="index.html" class="popup__form popup__form_type_avatar" name="formAdd">
+          <input required type="url" name="avatar" id="link" class="popup__input popup__input_type_link"
+            placeholder="Ссылка на картинку">
+          <span id="link-error" class="popup__error"></span>
+          <button type="submit" class="popup__button">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- POPUP ПОДТВЕРЖДЕНИЯ СВОЕЙ УВЕРЕННОСТИ УДАЛИТЬ КАРТОЧКУ -->
+    <div class="popup popup_type_delete">
+      <div class="popup__overlay"></div>
+      <div class="popup__content">
+        <button type="button" class="popup__close-button">
+        </button>
+        <h2 class="popup__title">Вы уверены?</h2>
+        <!-- <form novalidate action="index.html" class="popup__form popup__form_type_delete" name="formAdd">
+          <input required type="url" name="avatar" id="link" class="popup__input popup__input_type_link"
+            placeholder="Ссылка на картинку">
+          <span id="link-error" class="popup__error"></span>
+        </form> -->
+        <button type="submit" class="popup__button">Да</button>
+      </div>
+    </div>
+
     <!-- POPUP БОЛЬШОЕ ФОТО -->
     <div class="popup popup_type_photo">
       <div class="popup__overlay"></div>
@@ -96,7 +130,10 @@
         <img src="#" alt="" class="element__photo">
         <div class="element__description">
           <h2 class="element__title"></h2>
-          <button class="element__heart" type="button"></button>
+          <div class="element__like-section">
+            <button class="element__heart" type="button"></button>
+            <span class="element__like-counter">0</span>
+          </div>
         </div>
       </div>
     </template>

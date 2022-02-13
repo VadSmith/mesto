@@ -20,7 +20,8 @@
 
 .element__heart:hover {
   opacity: 50%;
-  cursor: url(../../../images/pointer.png) 10 0, pointer;
+  cursor: pointer;
+  /* cursor: url(../../../images/pointer.png) 10 0, pointer; */
 }
 
 /* .element__heart {

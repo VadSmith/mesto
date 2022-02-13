@@ -10,7 +10,8 @@
 
 .profile__edit-button:hover {
   opacity: 60%;
-  cursor: url(../../../images/pointer.png) 10 0, pointer;
+  /* cursor: url(../../../images/pointer.png) 10 0, pointer; */
+  cursor: pointer;
 }
 
 @media screen and (max-width: 720px) {
