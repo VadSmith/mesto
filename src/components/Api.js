@@ -96,8 +96,8 @@ class Api {
       )
   }
 
-  putLike(cardId) {
-    return fetch(`${this._address}/${this._cohortId}/cards/${cardId}/likes`, {
+  putLike(cardJSON) {
+    return fetch(`${this._address}/${this._cohortId}/cards/${cardJSON._id}/likes`, {
       method: 'PUT',
       headers: {
         authorization: this._token
@@ -109,6 +109,22 @@ class Api {
         }
         return Promise.reject(`Ошибка: ${response.status}`);
       });
+  }
+
+  deleteLike(cardJSON) {
+    return fetch(`${this._address}/${this._cohortId}/cards/${cardJSON._id}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token
+      }
+    })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(`Ошибка: ${response.status}`);
+      });
+
   }
 }
 

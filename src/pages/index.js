@@ -67,7 +67,7 @@ function createCard(cardObject) {
     cardData: cardObject,
     handleCardClick: () => { popupWithImageInstance.open(cardObject); },
     handleRemoveButtonClick: () => { popupConfirmInstance.open(cardObject); },
-  }, isStrangerCard, hasMyLike, putLike, '.template-element')
+  }, api, isStrangerCard, hasMyLike, putLike, deleteLike, '.template-element')
     .getView()
   return cardInstance;
 }
@@ -79,6 +79,16 @@ function putLike(cardJSON) {
     })
     .catch(error => {
       console.error('ОШИБКА в api.putLike: ', error);
+    })
+}
+
+function deleteLike(cardJSON) {
+  api.deleteLike(cardJSON._id)
+    .then(response => {
+      console.log(response);
+    })
+    .catch(error => {
+      console.error('ОШИБКА в api.deleteLike: ', error);
     })
 }
 // подтверждение удаления карточки
@@ -116,25 +126,13 @@ function isStrangerCard(cardJSON) {
   return myID !== cardJSON.owner._id
 }
 
-let hasLike = false;
 
 function hasMyLike(cardJSON) {
-  // console.log(cardJSON.likes.some(person => {
-  //   person._id === myID;
-  // }))
-  let value = null;
-  if (cardJSON.likes.length > 0) {
-    value = cardJSON.likes.find(person => {
-      person._id == myID;
-    })
-    // cardJSON.likes.forEach(person => {
-    //   // console.log(person._id, myID);
-    //   if (person._id == myID) { hasLike = !hasLike; };
-    // })
-  };
-  return value;
+  if (cardJSON.likes.some(elem => elem._id === myID)) {
+    return true
+  }
+  else return false;
 }
-
 
 
 // Загрузка инфо юзера в шапку
