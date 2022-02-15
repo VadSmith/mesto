@@ -82,8 +82,8 @@ class Api {
         : Promise.reject(`Ошибка: ${response.status}`))
   }
 
-  deleteCard(cardObject) {
-    return fetch(`${this._address}/${this._cohortId}/cards/${cardObject._id}`, {
+  deleteCard(cardId) {
+    return fetch(`${this._address}/${this._cohortId}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: this._token,

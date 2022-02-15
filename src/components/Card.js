@@ -18,6 +18,8 @@ class Card {
     this._likesCounter = this._newCard.querySelector('.element__like-counter');
     this._likesSection = this._newCard.querySelector('element__like-section');
     this._isLikedByMe = false;
+    this._element = this._newCard.querySelector('.element');
+
   }
 
   _getTemplate() {
@@ -31,9 +33,17 @@ class Card {
   removeCard(evt) {
     evt.target.closest('.element').remove();
   }
+  remove() {
+    this._element.remove();
+  }
+
+  getCardId() { return this._cardData._id; }
 
   _setEventListeners() {
-    this._removeButton.addEventListener('click', this._handleRemoveButtonClick);
+    this._removeButton.addEventListener('click', () => {
+      this._handleRemoveButtonClick(this._cardData, this._element);
+    });
+
     this._heart.addEventListener('click', () => {
       if (!this._isLikedByMe) {
         this._api.putLike(this._cardData)
@@ -59,27 +69,10 @@ class Card {
           });
       }
     });
-    this._photo.addEventListener('click', this._handleCardClick);
+    this._photo.addEventListener('click', () => {
+      this._handleCardClick();
+    });
   }
-
-  //   слушатели
-  // на click, если !isLikedByMe ТО
-  // {запрос putLike()
-  //   из ответа прописать новое количество лайков
-  //   закрасить  сердце
-  //   установить isLikedByMe = true
-  // } else {
-  //   запрос deleteLike
-  //   отбелить сердце
-  //   установить isLikedByMe = false
-  // }
-
-
-  // при загрузке getView:
-  //   если есть лайк - закрасить сердце
-  //   установить isLikedByMe = true;
-  //   количество лайков прописать в likesCounter
-
 
   getView() {
     if (this._isStrangerCard(this._cardData)) this._removeButton.remove();

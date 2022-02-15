@@ -39,16 +39,6 @@ const api = new Api({
 
 let myID = '';
 
-// function setMyId() {
-//   api.getMyUserInfo()
-//     .then(response => {
-//       console.log('response from getMyUserInfo', response._id);
-//       myID = response._id;
-//       // return response._id
-//     }).catch(error => { console.error('ОШИБКА в getUserInfo', error); });
-// }
-
-
 function setUserInfoHandler(userObject) {
   popupEditButton.textContent = 'Сохранение...';
   api.setUserInfo(userObject)
@@ -66,10 +56,27 @@ function createCard(cardObject) {
   const cardInstance = new Card({
     cardData: cardObject,
     handleCardClick: () => { popupWithImageInstance.open(cardObject); },
-    handleRemoveButtonClick: () => { popupConfirmInstance.open(cardObject); },
+    handleRemoveButtonClick: (cardObject, cardInstance) => { popupConfirmInstance.open(cardObject, cardInstance); },
   }, api, isStrangerCard, hasMyLike, putLike, deleteLike, '.template-element')
     .getView()
   return cardInstance;
+}
+
+// подтверждение удаления карточки
+function handleConfirmButtonClick(cardObject, cardElement) {
+  popupConfirmInstance.open(cardElement);
+  popupDeleteConfirmButton.textContent = 'Удаление...';
+  api.deleteCard(cardObject._id)
+    .then(response => {
+      cardElement.remove();
+      popupConfirmInstance.close();
+
+    }).catch((error) => { 'ОШИБКА удаления карточки', error })
+    .finally(() => {
+      popupDeleteConfirmButton.textContent = 'Удалено';
+      popupConfirmInstance.close();
+      popupDeleteConfirmButton.textContent = 'Да';
+    });
 }
 
 function putLike(cardJSON) {
@@ -90,20 +97,6 @@ function deleteLike(cardJSON) {
     .catch(error => {
       console.error('ОШИБКА в api.deleteLike: ', error);
     })
-}
-// подтверждение удаления карточки
-function handleConfirmButtonClick(cardObject) {
-  // popupConfirmInstance.open(cardObject);
-  popupDeleteConfirmButton.textContent = 'Удаление';
-  api.deleteCard(cardObject)
-    .then(response => {
-      popupConfirmInstance.close();
-
-      // cardElementToDelete.removeCard();
-    }).catch((error) => { 'ОШИБКА удаления карточки', error })
-    .finally(() => {
-      popupDeleteConfirmButton.textContent = 'Удалено';
-    });
 }
 
 // установка аватара
@@ -134,22 +127,9 @@ function hasMyLike(cardJSON) {
   else return false;
 }
 
-
-// Загрузка инфо юзера в шапку
-// function renderUserInfoOnPage() {
-//   api.getMyUserInfo()
-//     .then(userInfo => {
-//       profileName.textContent = userInfo.name;
-//       profileJob.textContent = userInfo.about;
-//       profileAvatar.src = `${userInfo.avatar}`;
-//     })
-//     .catch(error => { console.error('ОШИБКА в renderUserInfoOnPage: ', error); });
-// }
-
 // Валидация добавления места
 const addPlaceFormValidator = new FormValidator(formAddPlaceElement, formClasses);
 addPlaceFormValidator.enableValidation();
-
 
 // Валидация формы пользователя
 const editProfileFormValidator = new FormValidator(formEditProfile, formClasses);
@@ -225,7 +205,7 @@ profileEditButton.addEventListener('click', () => {
 })
 
 // Попап удаления карточки
-const popupConfirmInstance = new PopupConfirm('.popup_type_delete', handleConfirmButtonClick);
+const popupConfirmInstance = new PopupConfirm('.popup_type_delete', handleConfirmButtonClick, api);
 popupConfirmInstance.setEventListeners();
 
 // загрузка карточек с сервера, установка ID, имени и инфо о пользователе
@@ -245,13 +225,3 @@ const userSelector = {
   profileNameSelector: '.profile__name',
   profileJobSelector: '.profile__occupation'
 }
-
-
-// function renderInitialCards() {
-//   console.log('renderInitialCards()');
-//   api.getInitialCards()
-//     .then(initialCardsArray => {
-//       cardsSectionInstance.renderItems(initialCardsArray);
-//     })
-//     .catch(error => { console.error('ОШИБКА в api.getInitialCards: ', error); });
-// }
