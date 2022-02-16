@@ -122,7 +122,6 @@ function editAvatarHandler(avatarObject) {
 
 // чужая ли карточка?
 function isStrangerCard(cardJSON) {
-  console.log('isStranger', myID);
   return myID !== cardJSON.owner._id
 }
 
