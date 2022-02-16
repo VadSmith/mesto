@@ -31,20 +31,22 @@ const popupDeleteConfirmButton = popupDeleteComfirm.querySelector('.popup__butto
 // const element = document.querySelector('.element');
 // const elementRemoveButton = element.querySelector('.element__remove-button');
 
+let myID = '';
+const userInfoInstance = new UserInfo();
+
 const api = new Api({
   address: 'https://nomoreparties.co/v1',
   token: '0dd0d459-95f6-44a8-af29-6effe65b34b3',
   cohortId: 'cohort-35'
 })
 
-let myID = '';
-
 function setUserInfoHandler(userObject) {
   popupEditButton.textContent = 'Сохранение...';
   api.setUserInfo(userObject)
     .then(response => {
-      profileName.textContent = response.name;
-      profileJob.textContent = response.about;
+      userInfoInstance.setUserInfo(response);
+      profileName.textContent = userInfoInstance.getUserInfo().name;
+      profileJob.textContent = userInfoInstance.getUserInfo().about;
     }).catch(error => { console.error('ОШИБКА в setUserInfo', error); })
     .finally(() => {
       popupEditButton.textContent = 'Сохранить';
@@ -70,7 +72,6 @@ function handleConfirmButtonClick(cardObject, cardElement) {
     .then(response => {
       cardElement.remove();
       popupConfirmInstance.close();
-
     }).catch((error) => { 'ОШИБКА удаления карточки', error })
     .finally(() => {
       popupDeleteConfirmButton.textContent = 'Удалено';
@@ -79,6 +80,7 @@ function handleConfirmButtonClick(cardObject, cardElement) {
     });
 }
 
+// установка лайка
 function putLike(cardJSON) {
   api.putLike(cardJSON._id)
     .then(response => {
@@ -89,6 +91,7 @@ function putLike(cardJSON) {
     })
 }
 
+// отзыв лайка
 function deleteLike(cardJSON) {
   api.deleteLike(cardJSON._id)
     .then(response => {
@@ -103,8 +106,11 @@ function deleteLike(cardJSON) {
 function editAvatarHandler(avatarObject) {
   popupEditButton.textContent = 'Сохранение...';
   api.editAvatar(avatarObject)
-    .then(response => {
-      profileAvatar.src = `${response.avatar}`;
+    .then(userJSON => {
+      userInfoInstance.setUserInfo(userJSON);
+      // .then(response => {
+      profileAvatar.src = userInfoInstance.getUserInfo().avatar;
+      // })
     })
     .catch(error => {
       console.error('ОШИБКА в editAvatarHandler: ', error)
@@ -116,10 +122,11 @@ function editAvatarHandler(avatarObject) {
 
 // чужая ли карточка?
 function isStrangerCard(cardJSON) {
+  console.log('isStranger', myID);
   return myID !== cardJSON.owner._id
 }
 
-
+// есть мой лайк?
 function hasMyLike(cardJSON) {
   if (cardJSON.likes.some(elem => elem._id === myID)) {
     return true
@@ -154,6 +161,7 @@ const cardsSectionInstance = new Section({
 
 // Попап формы добавления карточки
 const popupAddCardInstance = new PopupWithForm('.popup_type_add', (cardJSON) => {
+  addPlaceButton.textContent = "Сохранение..."
   const card = {
     name: cardJSON.place,
     link: cardJSON.link,
@@ -165,6 +173,8 @@ const popupAddCardInstance = new PopupWithForm('.popup_type_add', (cardJSON) => 
     })
     .catch(error => {
       console.error('ОШИБКА в api.addCard: ', error);
+    }).finally(() => {
+      addPlaceButton.textContent = "Сохранить"
     })
 });
 popupAddCardInstance.setEventListeners();
@@ -193,16 +203,11 @@ popupEditAvatarInstance.setEventListeners();
 profileEditButton.addEventListener('click', () => {
   popupEditProfileInstance.open();
   popupEditButton.textContent = 'Загрузка...';
-  api.getMyUserInfo()
-    .then(response => {
-      nameInput.value = response.name;
-      jobInput.value = response.about;
-    })
-    .catch(error => { console.error('ОШИБКА в api.getUserInfo: ', error) })
-    .finally(() => {
-      popupEditButton.textContent = 'Сохранить';
-    });
+  nameInput.value = userInfoInstance.getUserInfo().name;
+  jobInput.value = userInfoInstance.getUserInfo().about;
+  popupEditButton.textContent = 'Сохранить';
 })
+
 
 // Попап удаления карточки
 const popupConfirmInstance = new PopupConfirm('.popup_type_delete', handleConfirmButtonClick, api);
@@ -211,17 +216,12 @@ popupConfirmInstance.setEventListeners();
 // загрузка карточек с сервера, установка ID, имени и инфо о пользователе
 Promise.all([api.getInitialCards(), api.getMyUserInfo()])
   .then(([initialCardsArray, myUserInfo]) => {
-    myID = myUserInfo._id;
-    profileName.textContent = myUserInfo.name;
-    profileJob.textContent = myUserInfo.about;
-    profileAvatar.src = myUserInfo.avatar;
+    userInfoInstance.setUserInfo(myUserInfo);
+    myID = userInfoInstance.getUserInfo()._id;
+    profileName.textContent = userInfoInstance.getUserInfo().name;
+    profileJob.textContent = userInfoInstance.getUserInfo().about;
+    profileAvatar.src = userInfoInstance.getUserInfo().avatar;
     cardsSectionInstance.renderItems(initialCardsArray);
-  }).catch(err => { console.log(err); });
+  }).catch(error => { console.error('ОШИБКА в Promise.all ', error); });
 
 
-//////////////////////////////////////////////////////
-// На удаление
-const userSelector = {
-  profileNameSelector: '.profile__name',
-  profileJobSelector: '.profile__occupation'
-}

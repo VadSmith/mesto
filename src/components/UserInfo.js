@@ -1,25 +1,22 @@
 export default class UserInfo {
-  constructor({ profileNameSelector, profileJobSelector }) {
-    this._nameElement = document.querySelector(profileNameSelector);
-    this._occupationElement = document.querySelector(profileJobSelector);
+  constructor() {
   }
 
   getUserInfo() {
     return {
-      name: this._nameElement.textContent,
-      occupation: this._occupationElement.textContent
+      name: this._name,
+      about: this._about,
+      avatar: this._avatar,
+      _id: this._id,
+      cohort: this._cohort
     }
   }
-  // getUserInfo() {
-  //   return fetch(https://nomoreparties.co/v1/cohortId/users/me)
-  //   return {
-  //     name: this._nameElement.textContent,
-  //     occupation: this._occupationElement.textContent
-  //   }
-  // }
 
-  setUserInfo(name, occupation) {
-    this._nameElement.textContent = name;
-    this._occupationElement.textContent = occupation;
+  setUserInfo({ name, about, avatar, _id, cohort }) {
+    this._name = name;
+    this._about = about;
+    this._avatar = avatar;
+    this._id = _id;
+    this._cohort = cohort;
   }
 }
