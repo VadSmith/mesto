@@ -5,29 +5,23 @@ export default class Popup {
     this._popupCloseButton = this._popup.querySelector('.popup__close-button');
     this._handleEscClose = this._handleEscClose.bind(this);
     this.close = this.close.bind(this);
+    this._popupSubmitButton = this._popup.querySelector('.popup__button');
   }
 
   open() {
     this._popup.classList.add("popup_opened");
     document.addEventListener('keyup', this._handleEscClose); // Обработка ESC
-    // this.setEventListeners();
   }
 
   close() {
     this._popup.classList.remove("popup_opened");
     document.removeEventListener('keyup', this._handleEscClose);
-    // this._removeEventListeners();
   }
 
   _handleEscClose(evt) {
     if (evt.key === 'Escape') {
       this.close();
     }
-  }
-
-  _removeEventListeners() {
-    this._popupOverlay.removeEventListener('click', this.close); // закрытие по оверлэй
-    this._popupCloseButton.removeEventListener('click', this.close);
   }
 
   setEventListeners() {

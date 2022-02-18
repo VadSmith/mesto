@@ -1,129 +1,88 @@
 class Api {
-  constructor({ address, token, cohortId }) {
+  constructor({ address, cohortId }, headers) {
     this._address = address;
-    this._token = token;
     this._cohortId = cohortId;
+    this._headers = headers;
+  }
+
+  _checkResponse = (response) => {
+    if (response.ok) {
+      return response.json();
+    }
+    return Promise.reject(`Ошибка: ${response.status}`);
   }
 
   getMyUserInfo() {
     return fetch(`${this._address}/${this._cohortId}/users/me`, {
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: this._token
-      }
+      headers: this._headers
     })
-      .then(response => response.ok
-        ? response.json()
-        : Promise.reject(`Ошибка внутри getMyInfo(): ${response.status}`
-        ))
+      .then(this._checkResponse);
   }
 
   setUserInfo(userObject) {
     return fetch(`${this._address}/${this._cohortId}/users/me`, {
       method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        authorization: this._token
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: userObject.name,
         about: userObject.about
       })
     })
-      .then(response => response.ok
-        ? response.json()
-        : Promise.reject(`ОШИБКА: ${response.status}`))
+      .then(this._checkResponse);
   }
 
   getInitialCards() {
     return fetch(`${this._address}/${this._cohortId}/cards`, {
-      headers: {
-        authorization: this._token
-      }
+      headers: this._headers
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        return Promise.reject(`Ошибка: ${response.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   editAvatar(avatarObject) {
     return fetch(`${this._address}/${this._cohortId}/users/me/avatar/`, {
       method: 'PATCH',
-      headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         avatar: avatarObject.avatar
       })
     })
-      .then(response => response.ok
-        ? response.json()
-        : Promise.reject(`Ошибка: ${response.status}`))
+      .then(this._checkResponse)
   }
 
   addCard(cardObject) {
     return fetch(`${this._address}/${this._cohortId}/cards/`, {
       method: 'POST',
-      headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: cardObject.name,
         link: cardObject.link
       })
     })
-      .then(response => response.ok
-        ? response.json()
-        : Promise.reject(`Ошибка: ${response.status}`))
+      .then(this._checkResponse)
   }
 
   deleteCard(cardId) {
     return fetch(`${this._address}/${this._cohortId}/cards/${cardId}`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._token,
-        'Content-Type': 'application/json'
-      },
+      headers: this._headers,
     })
-      .then(response => response.ok
-        ? response.json()
-        : Promise.reject(`Ошибка: ${response.status}`)
-      )
+      .then(this._checkResponse)
   }
 
   putLike(cardJSON) {
     return fetch(`${this._address}/${this._cohortId}/cards/${cardJSON._id}/likes`, {
       method: 'PUT',
-      headers: {
-        authorization: this._token
-      }
+      headers: this._headers
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        return Promise.reject(`Ошибка: ${response.status}`);
-      });
+      .then(this._checkResponse);
   }
 
   deleteLike(cardJSON) {
     return fetch(`${this._address}/${this._cohortId}/cards/${cardJSON._id}/likes`, {
       method: 'DELETE',
-      headers: {
-        authorization: this._token
-      }
+      headers: this._headers
     })
-      .then(response => {
-        if (response.ok) {
-          return response.json();
-        }
-        return Promise.reject(`Ошибка: ${response.status}`);
-      });
+      .then(this._checkResponse);
 
   }
 }

@@ -3,7 +3,7 @@ import Popup from './Popup.js';
 export default class PopupConfirm extends Popup {
   constructor(popupSelector, handleConfirmButtonClick, api) {
     super(popupSelector);
-    this._api = api;
+    // this._api = api;
     this._confirmButton = this._popup.querySelector('.popup__button');
     this._handleConfirmButtonClick = handleConfirmButtonClick;
   }

@@ -7,7 +7,6 @@ class FormValidator {
     this._inactiveButtonClass = formClasses.inactiveButtonClass;
     this._inputErrorClass = formClasses.inputErrorClass;
     this._errorClass = formClasses.errorClass;
-
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
     this._inputs = this._form.querySelectorAll(this._inputSelector);
   }
@@ -29,18 +28,18 @@ class FormValidator {
   }
 
   // Есть ли невалидный инпут в массиве inputs
-  _hasInvalidInput(inputs) {
-    return Array.from(inputs).some((el) => !el.validity.valid); // Берем массив из NodeList
+  _hasInvalidInput() {
+    return Array.from(this._inputs).some((el) => !el.validity.valid); // Берем массив из NodeList
   }
 
   // Делаем недоступной кнопку сабмита, если есть невалидный инпут
-  _toggleSubmitButton(inputs, button) {
-    if (this._hasInvalidInput(inputs)) {
-      button.classList.add(this._inactiveButtonClass); // выключаем кнопку сабмит
-      button.disabled = true;
+  _toggleSubmitButton() {
+    if (this._hasInvalidInput()) {
+      this._submitButton.classList.add(this._inactiveButtonClass); // выключаем кнопку сабмит
+      this._submitButton.disabled = true;
     } else {
-      button.classList.remove(this._inactiveButtonClass); // включаем кнопку сабмит
-      button.disabled = false;
+      this._submitButton.classList.remove(this._inactiveButtonClass); // включаем кнопку сабмит
+      this._submitButton.disabled = false;
     }
   }
 
@@ -54,32 +53,28 @@ class FormValidator {
   }
 
   // установка слушателей на все инпуты
-  _setInputListeners(form) {
-    const inputs = form.querySelectorAll(this._inputSelector); // собираем все инпуты
-    const submitButton = form.querySelector(this._submitButtonSelector); // берем кнопку сабмит
-    inputs.forEach((input) => {
+  _setInputListeners() {
+    this._inputs.forEach((input) => {
       input.addEventListener('input', () => {  // вешаем слушателей на каждый инпут
-        this._checkInputValidity(form, input); // проверка валидности
-        this._toggleSubmitButton(inputs, submitButton, this._inactiveButtonClass); // включение кнопки сабмита
+        this._checkInputValidity(this._form, input); // проверка валидности
+        this._toggleSubmitButton(); // включение кнопки сабмита
       });
     });
   }
 
   resetValidation() {
-    // const submitButton = this._form.querySelector(this._submitButtonSelector);
-    // const inputs = this._form.querySelectorAll(this._inputSelector);
     this._inputs.forEach((input) => {
       this._hideError(this._form, input);
     })
-    this._toggleSubmitButton(this._inputs, this._submitButton);
+    this._toggleSubmitButton();
   }
 
   enableValidation() {
     this._form.addEventListener('submit', (event) => {
       event.preventDefault();
     });
-    this._setInputListeners(this._form);
-    this.resetValidation(this._form);
+    this._setInputListeners();
+    this.resetValidation();
   }
 
 }

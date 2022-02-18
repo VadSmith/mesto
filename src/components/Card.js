@@ -1,15 +1,14 @@
 class Card {
-  constructor({ cardData, handleCardClick, handleRemoveButtonClick }, api, isStrangerCard, hasMyLike, putLike, deleteLike, templateSelector) {
-    this._templateElement = document.querySelector(templateSelector);
+  constructor({ myID, cardData, handleCardClick, handleRemoveButtonClick }, api, templateSelector) {
+    // constructor({ cardData, handleCardClick, handleRemoveButtonClick }, api, isStrangerCard, hasMyLike, putLike, deleteLike, templateSelector) {
+    this._myID = myID;
     this._cardData = cardData;
-    this._popupConfirm = document.querySelector('.popup_type_delete');
     this._handleCardClick = handleCardClick;
-    this._api = api;
-    this._putLike = putLike;
-    this._deleteLike = deleteLike;
     this._handleRemoveButtonClick = handleRemoveButtonClick;
-    this._isStrangerCard = isStrangerCard;
-    this._hasMyLike = hasMyLike;
+    this._api = api;
+    this._templateElement = document.querySelector(templateSelector);
+    // this._isStrangerCard = isStrangerCard;
+    // this._hasMyLike = hasMyLike;
     this._newCard = this._getTemplate();
     this._removeButton = this._newCard.querySelector('.element__remove-button'); // кнопка корзины
     this._heart = this._newCard.querySelector('.element__heart');
@@ -22,6 +21,20 @@ class Card {
 
   }
 
+
+  // чужая ли карточка?
+  _isStrangerCard(cardJSON) {
+    return this._myID !== cardJSON.owner._id
+  }
+
+  // есть мой лайк?
+  _hasMyLike(cardJSON) {
+    if (cardJSON.likes.some(elem => elem._id === this._myID)) {
+      return true
+    }
+    else return false;
+  }
+
   _getTemplate() {
     return this._templateElement.content.cloneNode(true);
   }
@@ -30,9 +43,9 @@ class Card {
     evt.target.classList.toggle('element__heart_active');
   }
 
-  removeCard(evt) {
-    evt.target.closest('.element').remove();
-  }
+  // removeCard(evt) {
+  //   evt.target.closest('.element').remove();
+  // }
   remove() {
     this._element.remove();
   }
@@ -55,7 +68,7 @@ class Card {
             updatedCardJSON.likes.forEach(person => {
               this._likesCounter.title += ` ${person.name}`;
             });
-          });
+          }).catch(error => console.log(error));
       } else {
         this._api.deleteLike(this._cardData)
           .then(updatedCardJSON => {
@@ -66,7 +79,7 @@ class Card {
             updatedCardJSON.likes.forEach(person => {
               this._likesCounter.title += ` ${person.name}`;
             });
-          });
+          }).catch(error => console.log(error));;
       }
     });
     this._photo.addEventListener('click', () => {
